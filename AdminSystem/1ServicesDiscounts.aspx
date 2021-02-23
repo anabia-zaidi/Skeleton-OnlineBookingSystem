@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="1EmailReschedule.aspx.cs" Inherits="_1_DataEntry" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="1ServicesDiscounts.aspx.cs" Inherits="_1Viewer" %>
 
 <!DOCTYPE html>
 

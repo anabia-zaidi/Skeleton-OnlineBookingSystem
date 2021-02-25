@@ -60,5 +60,84 @@ namespace Testing1
             AService.Duration = TestData;
             Assert.AreEqual(AService.Duration, TestData);
         }
+        [TestMethod]
+        public void FindMethodOK()
+        {
+            clsServices AService = new clsServices();
+            Boolean Found = false;
+            Int32 Price = 50;
+            Found = AService.Find(Price);
+            Assert.IsTrue(Found);
+        }
+        [TestMethod]
+        public void TestPriceNoFound()
+        {
+            clsServices AService = new clsServices();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 Price = 50;
+            Found = AService.Find(Price);
+            if (AService.Price != 50)
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
+        }
+        [TestMethod]
+        public void TestDurationFound()
+        {
+            clsServices AService = new clsServices();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 Price = 50;
+            Found = AService.Find(Price);
+            if (AService.Duration != 1)
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
+        }
+        [TestMethod]
+        public void TestServiceNameFound()
+        {
+            clsServices AService = new clsServices();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 Price = 50;
+            Found = AService.Find(Price);
+            if (AService.ServiceName != "Test Service Name")
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
+        }
+        [TestMethod]
+        public void TestStaffFound()
+        {
+            clsServices AService = new clsServices();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 Price = 50;
+            Found = AService.Find(Price);
+            if (AService.Staff != "Test Staff")
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
+        }
+        [TestMethod]
+        public void TestDiscountFound()
+        {
+            clsServices AService = new clsServices();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 Price = 50;
+            Found = AService.Find(Price);
+            if (AService.Discount != true)
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
+        }
     }
 }

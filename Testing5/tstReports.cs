@@ -114,5 +114,77 @@ namespace Testing5
             Found = AReport.Find(EmployeeId);
             Assert.IsTrue(Found);
         }
+
+        [TestMethod]
+        public void TestEmployeeIdNoFound()
+        {
+            clsReports AReport = new clsReports();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 EmployeeId = 2501016;
+            Found = AReport.Find(EmployeeId);
+            //check the employee id
+            if (AReport.EmployeeId != 2501016)
+            {
+                OK = false;
+            }
+            //test to see if that result is correct 
+            Assert.IsTrue(OK);
+        }
+
+
+        [TestMethod]
+        public void TestDateAddedFound()
+        {
+            clsReports AReport = new clsReports();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 EmployeeId = 2501016;
+            Found = AReport.Find(EmployeeId);
+            //check the employee id
+            if (AReport.DateAdded != Convert.ToDateTime("16/04/2021"))
+            {
+                OK = false;
+            }
+            //test to see if that result is correct 
+            Assert.IsTrue(OK);
+        }
+
+
+        [TestMethod]
+        public void TestExpensesFound()
+        {
+            clsReports AReport = new clsReports();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 EmployeeId = 2501016;
+            Found = AReport.Find(EmployeeId);
+            //check the employee id
+            if (AReport.Expenses != 500)
+            {
+                OK = false;
+            }
+            //test to see if that result is correct 
+            Assert.IsTrue(OK);
+        }
+
+        [TestMethod]
+        public void TestTotalFound()
+        {
+            clsReports AReport = new clsReports();
+            Boolean Found = false;
+            Boolean OK = true;
+            Int32 EmployeeId = 2501016;
+            Found = AReport.Find(EmployeeId);
+            //check the employee id
+            if (AReport.Total != 1000)
+            {
+                OK = false;
+            }
+            //test to see if that result is correct 
+            Assert.IsTrue(OK);
+        }
+
+       //TestProfitOrLossFound needs to be added
     }
 }

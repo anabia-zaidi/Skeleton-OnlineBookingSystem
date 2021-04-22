@@ -70,6 +70,15 @@ namespace Testing5
             Assert.AreEqual(AReport.Expenses, TestData);
         }
 
+        [TestMethod]
+        public void EmployeeNameOK()
+        {
+            clsReports AReport = new clsReports();
+            String TestData = "Akshay";
+            AReport.EmployeeName = TestData;
+            Assert.AreEqual(AReport.Total, TestData);
+        }
+
 
         [TestMethod]
         public void TotalPropertyOK()
@@ -185,6 +194,20 @@ namespace Testing5
             Assert.IsTrue(OK);
         }
 
-       //TestProfitOrLossFound needs to be added
+        [TestMethod]
+        public void TestProfitOrLossFound()
+        {
+            clsReports AReport = new clsReports();
+            Boolean Found = false;
+            Boolean OK = true;
+            Boolean ProfitOrLoss = true;
+            Found = AReport.Find(ProfitOrLoss);
+            if (AReport.ProfitOrLoss != false)
+            {
+                OK = false;
+            }
+            Assert.IsTrue(OK);
+        }
+
     }
 }

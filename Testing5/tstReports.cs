@@ -110,7 +110,7 @@ namespace Testing5
         {
             clsReports AReport = new clsReports();
             Boolean Found = false;
-            Int32 EmployeeId = 2501016;
+            Int32 EmployeeId = 2;
             Found = AReport.Find(EmployeeId);
             Assert.IsTrue(Found);
         }
@@ -121,10 +121,10 @@ namespace Testing5
             clsReports AReport = new clsReports();
             Boolean Found = false;
             Boolean OK = true;
-            Int32 EmployeeId = 2501016;
+            Int32 EmployeeId = 2;
             Found = AReport.Find(EmployeeId);
             //check the employee id
-            if (AReport.EmployeeId != 2501016)
+            if (AReport.EmployeeId != 2)
             {
                 OK = false;
             }
@@ -139,7 +139,7 @@ namespace Testing5
             clsReports AReport = new clsReports();
             Boolean Found = false;
             Boolean OK = true;
-            Int32 EmployeeId = 2501016;
+            Int32 EmployeeId = 2;
             Found = AReport.Find(EmployeeId);
             //check the employee id
             if (AReport.DateAdded != Convert.ToDateTime("16/04/2021"))
@@ -157,7 +157,7 @@ namespace Testing5
             clsReports AReport = new clsReports();
             Boolean Found = false;
             Boolean OK = true;
-            Int32 EmployeeId = 2501016;
+            Int32 EmployeeId = 2;
             Found = AReport.Find(EmployeeId);
             //check the employee id
             if (AReport.Expenses != 500)
@@ -174,7 +174,7 @@ namespace Testing5
             clsReports AReport = new clsReports();
             Boolean Found = false;
             Boolean OK = true;
-            Int32 EmployeeId = 2501016;
+            Int32 EmployeeId = 2;
             Found = AReport.Find(EmployeeId);
             //check the employee id
             if (AReport.Total != 1000)

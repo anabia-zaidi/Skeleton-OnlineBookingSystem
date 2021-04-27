@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ClassLibrary
 {
@@ -87,7 +88,7 @@ namespace ClassLibrary
         }
 
 
-        private String mEmployeeName
+        private String mEmployeeName;
         public string EmployeeName
         {
 
@@ -137,6 +138,178 @@ namespace ClassLibrary
                 //return false indication a problem
                 return false;
             }
+        }
+
+        public string Valid(string employeeId, string employeeName, string total, string expenses, string dateAdded)
+        {
+            return "";
+        }
+
+        public string Valid(string employeeName, string total, string expenses, string dateAdded)
+        {
+            //create  a string variable to store the error
+            String Error = "";
+
+            //create a temporary variable to store date values
+            DateTime DateTemp;
+
+            //if EmployeeId is blank 
+            if (EmployeeName.Length == 0)
+            {
+                //record the error
+                Error = Error + "The Employee Name should not be blank : ";
+            }
+
+            //if the EmployeeName is greater than 50 characters
+            if (EmployeeName.Length > 50)
+            {
+                Error = Error + "The EmployeeName should not be greater than 50 characters : ";
+            }
+
+            try
+            {
+                //copy the dateadded value to the DateTemp Variable
+                DateTemp = Convert.ToDateTime(dateAdded);
+                if (DateTemp < DateTime.Now.Date)
+                {
+                    //record the error
+                    Error = Error + "The date cannot be in the past: ";
+                }
+
+                // check to see if the date is greater than today's date
+                if (DateTemp > DateTime.Now.Date)
+                {
+                    //record an error message
+                    Error = Error + "The date cannot be in future: ";
+                }
+            }
+
+            catch
+            {
+                //record the error
+                Error = Error + "The date was not a valid date: ";
+            }
+
+            //if the expenses are less than 0
+            if (Expenses > 0)
+            {
+                Error = Error + "Expenses should not be less than 0 ";
+            }
+
+                //return any error messages
+                return Error;
+            }
+    }
+
+    public class clsReportsCollection
+    {
+        public clsReports ThisReport;
+
+        List<clsReports> mReportsList = new List<clsReports>();
+        public List<clsReports> ReportList
+        {
+
+            get
+            {
+                //return the private data
+                return mReportsList;
+
+            }
+
+
+            set
+            {
+                mReportsList = value;
+            }
+        }
+
+
+
+
+        public int Count
+        {
+
+
+            get
+            {
+                //return the count of the list
+                return mReportsList.Count;
+            }
+
+
+            set
+            {
+                //do this later
+            }
+        }
+
+        //constructor for the class
+        public clsReportsCollection()
+        {
+            //var for the index
+            Int32 Index = 0;
+
+            //var to store the record count
+            Int32 RecordCount = 0;
+
+            //object for data connection
+            clsDataConnection DB = new clsDataConnection();
+
+            //execute the stored procedure
+            DB.Execute("sproc_tblManagmentTable_SelectAll");
+
+            //get the count of records
+            RecordCount = DB.Count;
+
+            //while there are records to process
+            while (Index < RecordCount)
+            {
+                //create blank Report
+                clsReports AReport = new clsReports();
+
+                //read in the field from the current record
+                AReport.EmployeeId = Convert.ToInt32(DB.DataTable.Rows[Index]["EmployeeId"]);
+                AReport.DateAdded = Convert.ToDateTime(DB.DataTable.Rows[Index]["DateAdded"]);
+                AReport.Expenses = Convert.ToInt32(DB.DataTable.Rows[Index]["Expenses"]);
+                AReport.Total = Convert.ToInt32(DB.DataTable.Rows[Index]["Total"]);
+                AReport.ProfitOrLoss = Convert.ToBoolean(DB.DataTable.Rows[Index]["ProfitOrLoss"]);
+                AReport.EmployeeName = Convert.ToString(DB.DataTable.Rows[Index]["EmployeeName"]);
+
+                //add the record to the private data member
+                mReportsList.Add(AReport);
+
+                //point at the next record
+                Index++;
+            }
+
+
+
+            clsReports TestItem = new clsReports();
+
+            //set its properties
+            TestItem.ProfitOrLoss = true;
+            TestItem.EmployeeId = 2;
+            TestItem.DateAdded = DateTime.Now.Date;
+            TestItem.EmployeeName = "Akshay";
+            TestItem.Expenses = 200;
+            TestItem.Total = 1000;
+
+            //add the item to the test list
+            mReportsList.Add(TestItem);
+
+            //re initialise the object for some new data
+            TestItem = new clsReports();
+
+            //set its properties
+            TestItem.ProfitOrLoss = true;
+            TestItem.EmployeeId = 3;
+            TestItem.DateAdded = DateTime.Now.Date;
+            TestItem.EmployeeName = "John";
+            TestItem.Expenses = 100;
+            TestItem.Total = 200;
+
+            //add the item to the test list
+            mReportsList.Add(TestItem);
         }
     }
 }

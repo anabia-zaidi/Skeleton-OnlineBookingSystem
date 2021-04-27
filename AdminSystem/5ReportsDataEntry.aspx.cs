@@ -8,6 +8,8 @@ using ClassLibrary;
 
 public partial class _1_ConfirmDelete : System.Web.UI.Page
 {
+  
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -22,12 +24,44 @@ public partial class _1_ConfirmDelete : System.Web.UI.Page
     {
         clsReports AReport = new clsReports();
 
-        //Capture EmployeeId
-        AReport.EmployeeId = Convert.ToInt32(txtEmployeeId.Text);
-        //store the address in the session object
-        Session["AReport"] = AReport;
-        //navigate to viewer page
-        Response.Redirect("5ReportsViewer.aspx");
+        //capture employeeid
+        string EmployeeId = txtEmployeeId.Text;
+        //capture employeeName
+        string EmployeeName = txtEmployeeName.Text;
+        //capture DateAdded
+        string DateAdded = txtDateAdded.Text;
+        //capture Total
+        string Total = txtTotal.Text;
+        //capture Expenses
+        string Expenses = txtExpenses.Text;
+        //variable to store any error messages
+        string Error = "";
+        //validate the data
+        Error = AReport.Valid(EmployeeId, EmployeeName, Total, Expenses, DateAdded);
+        if (Error == "")
+        {
+            //Capture EmployeeId
+            AReport.EmployeeId = Convert.ToInt32(txtEmployeeId.Text);
+            //Capture EmployeeName
+            AReport.EmployeeName = Convert.ToString(txtEmployeeName.Text);
+            //capture DateAdded
+            AReport.DateAdded = Convert.ToDateTime(txtDateAdded.Text);
+            //capture Total
+            AReport.Total = Convert.ToInt32(txtTotal.Text);
+            //capture Expenses
+            AReport.Expenses = Convert.ToInt32(txtExpenses.Text);
+            //store the address in the session object
+            Session["AReport"] = AReport;
+            //navigate to viewer page
+            Response.Redirect("5ReportsViewer.aspx");
+        }
+
+        else
+        {
+            //display the error message
+            lblError.Text = Error;
+        }
+        
     }
 
     protected void TextBox2_TextChanged(object sender, EventArgs e)
@@ -59,8 +93,8 @@ public partial class _1_ConfirmDelete : System.Web.UI.Page
             //Display the values of the properties in form
             txtEmployeeId.Text = AReport.EmployeeId.ToString();
             txtEmployeeName.Text = AReport.EmployeeName;
-            //txtExpenses.Text = AReport.Expenses.ToString();
-            //txtTotal.Text = AReport.Total.ToString();
+            txtExpenses.Text = AReport.Expenses.ToString();
+            txtTotal.Text = AReport.Total.ToString();
         }
 }
 }

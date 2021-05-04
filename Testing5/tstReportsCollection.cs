@@ -98,5 +98,42 @@ namespace Test_Framework
             Assert.AreEqual(AllReports.Count, TestList.Count);
 
         }
+
+        [TestMethod]
+        public void AddMethodOK()
+        {
+            clsReportsCollection AllReports = new clsReportsCollection();
+
+            //create the item of test data
+            clsReports TestItem = new clsReports();
+
+            //var to store the primary key
+            Int32 PrimaryKey = 0;
+
+            //set its properties
+            TestItem.ProfitOrLoss = true;
+            TestItem.EmployeeId = 2;
+            TestItem.DateAdded = DateTime.Now.Date;
+            TestItem.EmployeeName = "Akshay";
+            TestItem.Expenses = 200;
+            TestItem.Total = 1000;
+
+            //set ThisReports to the test data 
+            AllReports.ThisReport = TestItem;
+
+            //add the record
+            PrimaryKey = AllReports.Add();
+
+            //set the primary key of the test data
+            TestItem.EmployeeId = PrimaryKey;
+
+            //find the record
+            AllReports.ThisReport.Find(PrimaryKey);
+
+            //test to see that the two values are the same
+            Assert.AreEqual(AllReports.ThisReport, TestItem);
+        }
+
+
     }
 }

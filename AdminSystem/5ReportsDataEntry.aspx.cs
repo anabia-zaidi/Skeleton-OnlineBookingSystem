@@ -24,8 +24,7 @@ public partial class _1_ConfirmDelete : System.Web.UI.Page
     {
         clsReports AReport = new clsReports();
 
-        //capture employeeid
-        string EmployeeId = txtEmployeeId.Text;
+        
         //capture employeeName
         string EmployeeName = txtEmployeeName.Text;
         //capture DateAdded
@@ -37,11 +36,10 @@ public partial class _1_ConfirmDelete : System.Web.UI.Page
         //variable to store any error messages
         string Error = "";
         //validate the data
-        Error = AReport.Valid(EmployeeId, EmployeeName, Total, Expenses, DateAdded);
+        Error = AReport.Valid(EmployeeName, Total, Expenses, DateAdded);
         if (Error == "")
         {
-            //Capture EmployeeId
-            AReport.EmployeeId = Convert.ToInt32(txtEmployeeId.Text);
+            
             //Capture EmployeeName
             AReport.EmployeeName = Convert.ToString(txtEmployeeName.Text);
             //capture DateAdded
@@ -50,10 +48,23 @@ public partial class _1_ConfirmDelete : System.Web.UI.Page
             AReport.Total = Convert.ToInt32(txtTotal.Text);
             //capture Expenses
             AReport.Expenses = Convert.ToInt32(txtExpenses.Text);
-            //store the address in the session object
-            Session["AReport"] = AReport;
-            //navigate to viewer page
-            Response.Redirect("5ReportsViewer.aspx");
+            //capture Profit
+            AReport.ProfitOrLoss = chkProfit.Checked;
+            //capture Loss
+            AReport.ProfitOrLoss = chkLoss.Checked;
+
+            //create a new instance of the reports collection
+            clsReportsCollection ReportList = new clsReportsCollection();
+
+            //set the ThisReport property
+            ReportList.ThisReport = AReport;
+
+            //add the new record
+            ReportList.Add();
+
+            //redirect back to the listpage
+            Response.Redirect("6List.aspx");
+            
         }
 
         else

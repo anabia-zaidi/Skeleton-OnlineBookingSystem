@@ -37,4 +37,13 @@ public partial class _1_List : System.Web.UI.Page
 
 
     }
+
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        //store the -1 the session object to indicate this is a new record
+        Session["EmployeeId"] = -1;
+
+        //redirect to the data entry page
+        Response.Redirect("AReport.aspx");
+    }
 }

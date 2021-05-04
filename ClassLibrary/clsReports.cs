@@ -153,15 +153,15 @@ namespace ClassLibrary
             //create a temporary variable to store date values
             DateTime DateTemp;
 
-            //if EmployeeId is blank 
-            if (EmployeeName.Length == 0)
+            //if EmployeeName is blank 
+            if (employeeName.Length == 0)
             {
                 //record the error
                 Error = Error + "The Employee Name should not be blank : ";
             }
 
             //if the EmployeeName is greater than 50 characters
-            if (EmployeeName.Length > 50)
+            if (employeeName.Length > 50)
             {
                 Error = Error + "The EmployeeName should not be greater than 50 characters : ";
             }
@@ -200,26 +200,47 @@ namespace ClassLibrary
                 return Error;
             }
     }
+           
 
     public class clsReportsCollection
     {
-        public clsReports ThisReport;
 
+        //private data member for the list
         List<clsReports> mReportsList = new List<clsReports>();
+
+        //private data member thisReport
+        clsReports mThisReport = new clsReports();
+
+
+        public clsReports ThisReport
+        {
+            get
+            {
+                //retunr the private data
+                return mThisReport;
+            }
+            set
+            {
+                //set the private data
+                mThisReport = value;
+            }
+        }
+
+        List<clsReports> mReportList = new List<clsReports>();
         public List<clsReports> ReportList
         {
 
             get
             {
                 //return the private data
-                return mReportsList;
+                return mReportList;
 
             }
 
 
             set
             {
-                mReportsList = value;
+                mReportList = value;
             }
         }
 
@@ -233,7 +254,7 @@ namespace ClassLibrary
             get
             {
                 //return the count of the list
-                return mReportsList.Count;
+                return mReportList.Count;
             }
 
 
@@ -246,6 +267,12 @@ namespace ClassLibrary
         //constructor for the class
         public clsReportsCollection()
         {
+            //private data member for list
+            List<clsReports> mReportList = new List<clsReports>();
+
+            //private data memeber thisReports
+            clsReports mThisReports = new clsReports();
+
             //var for the index
             Int32 Index = 0;
 
@@ -276,7 +303,7 @@ namespace ClassLibrary
                 AReport.EmployeeName = Convert.ToString(DB.DataTable.Rows[Index]["EmployeeName"]);
 
                 //add the record to the private data member
-                mReportsList.Add(AReport);
+                mReportList.Add(AReport);
 
                 //point at the next record
                 Index++;
@@ -295,7 +322,7 @@ namespace ClassLibrary
             TestItem.Total = 1000;
 
             //add the item to the test list
-            mReportsList.Add(TestItem);
+            mReportList.Add(TestItem);
 
             //re initialise the object for some new data
             TestItem = new clsReports();
@@ -309,7 +336,24 @@ namespace ClassLibrary
             TestItem.Total = 200;
 
             //add the item to the test list
-            mReportsList.Add(TestItem);
+            mReportList.Add(TestItem);
+        }
+
+        public int Add()
+        {
+            //adds a new record to the database based on the values of mThisReport
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+
+            //set the parameters for the stored procedures
+            DB.AddParameter("EmployeeName", mThisReport.EmployeeName);
+            DB.AddParameter("Total", mThisReport.Total);
+            DB.AddParameter("Expenses", mThisReport.Expenses);
+            DB.AddParameter("DateAdded", mThisReport.DateAdded);
+            DB.AddParameter("ProfitOrLoss", mThisReport.ProfitOrLoss);
+
+            //execute the query returning the primary key value
+            return DB.Execute("sproc_tblManagmentTable_Insert");
         }
     }
 }

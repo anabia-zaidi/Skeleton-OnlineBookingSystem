@@ -135,5 +135,53 @@ namespace Test_Framework
         }
 
 
+        [TestMethod]
+        public void UpdateMethodOK()
+        {
+            clsReportsCollection AllReports = new clsReportsCollection();
+
+            //create the item of test data
+            clsReports TestItem = new clsReports();
+
+            //var to store the primary key
+            Int32 PrimaryKey = 0;
+
+            //set its properties
+            TestItem.ProfitOrLoss = true;
+            TestItem.EmployeeId = 2;
+            TestItem.DateAdded = DateTime.Now.Date;
+            TestItem.EmployeeName = "Akshay";
+            TestItem.Expenses = 200;
+            TestItem.Total = 1000;
+
+            //set ThisReport to the test data
+            AllReports.ThisReport = TestItem;
+
+            //add the record
+            PrimaryKey = AllReports.Add();
+
+            //set the primary key of the test data
+            TestItem.EmployeeId = PrimaryKey;
+
+            //modify the test data
+            TestItem.ProfitOrLoss = false;
+            TestItem.EmployeeId = 3;
+            TestItem.DateAdded = DateTime.Now.Date;
+            TestItem.EmployeeName = "Lax";
+            TestItem.Expenses = 500;
+            TestItem.Total = 5000;
+
+            //set the record based on the new test data
+            AllReports.ThisReport = TestItem;
+
+            //update the record
+            AllReports.Update();
+
+            //find the record
+            AllReports.ThisReport.Find(PrimaryKey);
+
+            //test to see ThisReport matched the test data
+            Assert.AreEqual(AllReports.ThisReport, TestItem);
+        }
     }
 }

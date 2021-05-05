@@ -227,6 +227,25 @@ namespace ClassLibrary
         }
 
         List<clsReports> mReportList = new List<clsReports>();
+
+        public void Update()
+        {
+            //update an existing record based on the values of thisReport
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+
+            //set the parameters for the stored procedure
+            DB.AddParameter("EmployeeId", mThisReport.EmployeeId);
+            DB.AddParameter("EmployeeName", mThisReport.EmployeeName);
+            DB.AddParameter("Total;", mThisReport.Total);
+            DB.AddParameter("Expenses", mThisReport.Expenses);
+            DB.AddParameter("DateAdded", mThisReport.DateAdded);
+            DB.AddParameter("ProfitOrLoss", mThisReport.ProfitOrLoss);
+
+            //execute the stored procedure
+            DB.Execute("sproc_tblManagmentTable_Update");
+        }
+
         public List<clsReports> ReportList
         {
 

@@ -8,11 +8,41 @@ using ClassLibrary;
 
 public partial class _1_ConfirmDelete : System.Web.UI.Page
 {
-  
+
+
+    Int32 EmployeeId;
 
     protected void Page_Load(object sender, EventArgs e)
     {
 
+        //get the number of the address to be processed
+        EmployeeId = Convert.ToInt32(Session["EmployeeId"]);
+        if (IsPostBack == false)
+        {
+            //if this is not a new record
+            if (EmployeeId != -1)
+            {
+                //display the current data for the record
+                DisplayReport();
+            }
+        }
+    }
+
+    private void DisplayReport()
+    {
+        clsReportsCollection ReportsEmployeeId = new clsReportsCollection();
+
+        //find the record to update
+        ReportsEmployeeId.ThisReport.Find(EmployeeId);
+
+        //display the data for this record
+        txtEmployeeId.Text = ReportsEmployeeId.ThisReport.EmployeeId.ToString();
+        txtEmployeeName.Text = ReportsEmployeeId.ThisReport.EmployeeName;
+        txtTotal.Text = ReportsEmployeeId.ThisReport.Total.ToString();
+        txtDateAdded.Text = ReportsEmployeeId.ThisReport.DateAdded.ToString();
+        txtExpenses.Text = ReportsEmployeeId.ThisReport.Expenses.ToString();
+        chkProfit.Checked = ReportsEmployeeId.ThisReport.ProfitOrLoss;
+        chkLoss.Checked = ReportsEmployeeId.ThisReport.ProfitOrLoss;
     }
 
     protected void TextBox1_TextChanged(object sender, EventArgs e)
@@ -25,6 +55,7 @@ public partial class _1_ConfirmDelete : System.Web.UI.Page
         clsReports AReport = new clsReports();
 
         
+
         //capture employeeName
         string EmployeeName = txtEmployeeName.Text;
         //capture DateAdded
@@ -39,15 +70,18 @@ public partial class _1_ConfirmDelete : System.Web.UI.Page
         Error = AReport.Valid(EmployeeName, Total, Expenses, DateAdded);
         if (Error == "")
         {
+
+            //Capture the employee id
+            AReport.EmployeeId = EmployeeId;
             
             //Capture EmployeeName
-            AReport.EmployeeName = Convert.ToString(txtEmployeeName.Text);
+            AReport.EmployeeName = EmployeeName;
             //capture DateAdded
-            AReport.DateAdded = Convert.ToDateTime(txtDateAdded.Text);
+            AReport.DateAdded = Convert.ToDateTime(DateAdded);
             //capture Total
-            AReport.Total = Convert.ToInt32(txtTotal.Text);
+            AReport.Total = Convert.ToInt32(Total);
             //capture Expenses
-            AReport.Expenses = Convert.ToInt32(txtExpenses.Text);
+            AReport.Expenses = Convert.ToInt32(Expenses);
             //capture Profit
             AReport.ProfitOrLoss = chkProfit.Checked;
             //capture Loss
@@ -56,12 +90,28 @@ public partial class _1_ConfirmDelete : System.Web.UI.Page
             //create a new instance of the reports collection
             clsReportsCollection ReportList = new clsReportsCollection();
 
-            //set the ThisReport property
-            ReportList.ThisReport = AReport;
+            //if this is a new record i.e. EmployeeId = -1 then add the data
+            if (EmployeeId == -1)
+            {
+                //set the ThisReport property
+                ReportList.ThisReport = AReport;
 
-            //add the new record
-            ReportList.Add();
+                //add the new record
+                ReportList.Add();
+            }
+            else
+            {
+                //find the record to update
+                ReportList.ThisReport.Find(EmployeeId);
 
+                //set the ThisReport property
+                ReportList.ThisReport = AReport;
+
+                //update the record
+                ReportList.Update();
+            }
+
+           
             //redirect back to the listpage
             Response.Redirect("6List.aspx");
             

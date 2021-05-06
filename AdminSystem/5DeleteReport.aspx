@@ -14,8 +14,8 @@
             <br />
             <br />
             <br />
-            <asp:Button ID="btnYes" runat="server" OnClick="btnYes_Click" Text="Yes" />
-            <asp:Button ID="btnNo" runat="server" Text="No" />
+            <asp:Button ID="btnYes" runat="server" OnClick="btnYes_Click" Text="Yes" style="height: 26px" />
+            <asp:Button ID="btnNo" runat="server" Text="No" OnClick="btnNo_Click" />
             <br />
         </div>
     </form>

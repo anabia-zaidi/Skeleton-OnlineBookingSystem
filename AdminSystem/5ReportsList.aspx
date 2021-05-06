@@ -20,20 +20,21 @@
             <asp:ListBox ID="lstReportsList" runat="server" Height="315px" OnSelectedIndexChanged="lstReportsList_SelectedIndexChanged" Width="316px"></asp:ListBox>
             <br />
             <br />
+            <asp:Label ID="lblEnterEmployeeName" runat="server" Text="Enter Employee Name: "></asp:Label>
+            <br />
+            <asp:TextBox ID="txtEmployeeName" runat="server" OnTextChanged="TextBox1_TextChanged" Width="229px"></asp:TextBox>
+            <br />
+            <asp:Button ID="btnApply" runat="server" OnClick="btnApply_Click" Text="Apply" />
+            <asp:Button ID="btnClear" runat="server" OnClick="Button2_Click" Text="Clear" />
+            <br />
+            <br />
+            <br />
             <asp:Button ID="btnAdd" runat="server" OnClick="btnAdd_Click" Text="Add" />
             <asp:Button ID="btnEdit" runat="server" OnClick="btnEdit_Click" Text="Edit" />
             <asp:Button ID="btnDelete" runat="server" OnClick="Button1_Click" Text="Delete" />
             <br />
             <br />
-            <br />
-            <asp:Label ID="lblEnterEmployeeName" runat="server" Text="Enter Employee Name: "></asp:Label>
-            <br />
-            <asp:TextBox ID="txtEmployeeName" runat="server" OnTextChanged="TextBox1_TextChanged" Width="229px"></asp:TextBox>
-            <br />
-            <br />
-            <asp:Button ID="btnApply" runat="server" OnClick="btnApply_Click" Text="Apply" />
-            <asp:Button ID="btnClear" runat="server" OnClick="Button2_Click" Text="Clear" />
-            <br />
+            <asp:Button ID="btnReturn" runat="server" OnClick="btnReturn_Click" Text="Return To Main Page" />
             <br />
             <asp:Label ID="lblError" runat="server" Text="[lblError]"></asp:Label>
             <br />

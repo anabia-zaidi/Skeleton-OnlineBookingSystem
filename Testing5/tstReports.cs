@@ -201,21 +201,7 @@ namespace Testing5
             Assert.IsTrue(OK);
         }
 
-       // [TestMethod]
-       // public void TestProfitOrLossFound()
-        //{
-        //    clsReports AReport = new clsReports();
-        //    Boolean Found = false;
-        //    Boolean OK = true;
-        //    Boolean ProfitOrLoss = true;
-        //    Found = AReport.Find(ProfitOrLoss);
-        //    if (AReport.ProfitOrLoss != false)
-         //   {
-         //       OK = false;
-        //    }
-         //   Assert.IsTrue(OK);
-        //}
-
+       
 
         [TestMethod]
         public void ValidMethodOK()

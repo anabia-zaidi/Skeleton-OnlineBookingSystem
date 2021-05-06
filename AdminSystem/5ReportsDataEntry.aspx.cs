@@ -113,7 +113,7 @@ public partial class _1_ConfirmDelete : System.Web.UI.Page
 
            
             //redirect back to the listpage
-            Response.Redirect("6List.aspx");
+            Response.Redirect("5ReportsList.aspx");
             
         }
 
@@ -158,4 +158,19 @@ public partial class _1_ConfirmDelete : System.Web.UI.Page
             txtTotal.Text = AReport.Total.ToString();
         }
 }
+
+    protected void btnCancel_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("5ReportsDataEntry.aspx");
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("5ReportsList.aspx");
+    }
+
+    protected void chkLoss_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
 }

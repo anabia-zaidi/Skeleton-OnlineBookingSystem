@@ -27,15 +27,20 @@ public partial class DeleteReport : System.Web.UI.Page
     protected void btnYes_Click(object sender, EventArgs e)
     {
         //create a new instance of the address book
-        clsReportsCollection ReportBook = new clsReportsCollection();
+        clsReportsCollection ReportsBook = new clsReportsCollection();
 
         //find the record to delete
-        ReportBook.ThisReport.Find(EmployeeId);
+        ReportsBook.ThisReport.Find(EmployeeId);
 
         //delete the record
-        ReportBook.Delete();
+        ReportsBook.Delete();
 
         //redirect back to the main page
+        Response.Redirect("5ReportsList.aspx");
+    }
+
+    protected void btnNo_Click(object sender, EventArgs e)
+    {
         Response.Redirect("5ReportsList.aspx");
     }
 }

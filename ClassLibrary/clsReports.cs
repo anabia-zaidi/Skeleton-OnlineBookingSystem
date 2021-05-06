@@ -283,40 +283,46 @@ namespace ClassLibrary
             }
         }
 
-        //constructor for the class
-        public clsReportsCollection()
+        public void Delete()
         {
-            //private data member for list
-            List<clsReports> mReportList = new List<clsReports>();
+            //deletes the record pointed to by ThisReport
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
 
-            //private data memeber thisReports
-            clsReports mThisReports = new clsReports();
+            //set the parameters for the stored procedure
+            DB.AddParameter ("@EmployeeId", mThisReport.EmployeeId);
 
-            //var for the index
+            //execute the stored procedure
+            DB.Execute("sproc_tblManagmentTable_Delete");
+        }
+
+
+
+        void PopulateArray(clsDataConnection DB)
+        {
+            //populates the array list based on the data table in the parameter DB
+            //var for the Index
             Int32 Index = 0;
 
             //var to store the record count
-            Int32 RecordCount = 0;
-
-            //object for data connection
-            clsDataConnection DB = new clsDataConnection();
-
-            //execute the stored procedure
-            DB.Execute("sproc_tblManagmentTable_SelectAll");
+            Int32 RecordCount;
 
             //get the count of records
             RecordCount = DB.Count;
 
+            //clear the private array list
+            mReportList = new List<clsReports>();
+
             //while there are records to process
             while (Index < RecordCount)
             {
-                //create blank Report
+                //create a blank address
                 clsReports AReport = new clsReports();
 
-                //read in the field from the current record
+                //read in the fields from the current record
                 AReport.EmployeeId = Convert.ToInt32(DB.DataTable.Rows[Index]["EmployeeId"]);
                 AReport.DateAdded = Convert.ToDateTime(DB.DataTable.Rows[Index]["DateAdded"]);
-                AReport.Expenses = Convert.ToInt32(DB.DataTable.Rows[Index]["Expenses"]);
+               // AReport.Expenses = Convert.ToInt32(DB.DataTable.Rows[Index]["Expenses"]);
                 AReport.Total = Convert.ToInt32(DB.DataTable.Rows[Index]["Total"]);
                 AReport.ProfitOrLoss = Convert.ToBoolean(DB.DataTable.Rows[Index]["ProfitOrLoss"]);
                 AReport.EmployeeName = Convert.ToString(DB.DataTable.Rows[Index]["EmployeeName"]);
@@ -324,38 +330,43 @@ namespace ClassLibrary
                 //add the record to the private data member
                 mReportList.Add(AReport);
 
-                //point at the next record
+                //point to the next record
                 Index++;
+
             }
+        }
 
 
 
-            clsReports TestItem = new clsReports();
 
-            //set its properties
-            TestItem.ProfitOrLoss = true;
-            TestItem.EmployeeId = 2;
-            TestItem.DateAdded = DateTime.Now.Date;
-            TestItem.EmployeeName = "Akshay";
-            TestItem.Expenses = 200;
-            TestItem.Total = 1000;
+        //constructor for the class
+        public clsReportsCollection()
+        {
+            //object for data connection
+            clsDataConnection DB = new clsDataConnection();
 
-            //add the item to the test list
-            mReportList.Add(TestItem);
+            //execute the stored procedure
+            DB.Execute("sproc_tblManagmentTable_SelectAll");
 
-            //re initialise the object for some new data
-            TestItem = new clsReports();
+            //populate the arraylist with the data table
+            PopulateArray(DB);
 
-            //set its properties
-            TestItem.ProfitOrLoss = true;
-            TestItem.EmployeeId = 3;
-            TestItem.DateAdded = DateTime.Now.Date;
-            TestItem.EmployeeName = "John";
-            TestItem.Expenses = 100;
-            TestItem.Total = 200;
+        }
 
-            //add the item to the test list
-            mReportList.Add(TestItem);
+        public void ReportByEmployeeName(string EmployeeName)
+        {
+            //filters the records based on full or partial employee name
+            //connect to the database
+            clsDataConnection DB = new clsDataConnection();
+
+            //send the EmployeeName parameter to the database
+            DB.AddParameter("@EmployeeName", EmployeeName);
+
+            //execute the stored procedure
+            DB.Execute("sproc_tblManagmentTable_FilterByEmployeeName");
+
+            //populate array list with the data table
+            PopulateArray(DB);
         }
 
         public int Add()

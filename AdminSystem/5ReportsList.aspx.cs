@@ -61,7 +61,7 @@ public partial class _1_List : System.Web.UI.Page
             Session["EmployeeId"] = EmployeeId;
 
             //redirect to the edit page
-            Response.Redirect("5ReportsDataEntry.aspx");   //double check if its the correct apsx
+            Response.Redirect("5ReportsDataEntry.aspx");   
         }
         else //if not record has been selected
         {
@@ -85,7 +85,7 @@ public partial class _1_List : System.Web.UI.Page
             Session["EmployeeId"] = EmployeeId;
 
             //redirect to the delete page
-            Response.Redirect("DeleteReport.aspx");
+            Response.Redirect("5DeleteReport.aspx");
         }
         else //if no record has been selected
         {
@@ -94,9 +94,28 @@ public partial class _1_List : System.Web.UI.Page
         }
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void Button1_Click(object sender, EventArgs e) //Delete Button Code - btnDelete
     {
+        //var to store the primary key value  of the record to be deleted
+        Int32 EmployeeId;
 
+        //if the record has been selected from the list
+        if (lstReportsList.SelectedIndex != -1)
+        {
+            //get the primary key value fo the record to delete
+            EmployeeId = Convert.ToInt32(lstReportsList.SelectedValue);
+
+            //store the data in the session object
+            Session["EmployeeId"] = EmployeeId;
+
+            //redirect to the delete page
+            Response.Redirect("5DeleteReport.aspx");
+        }
+        else //if no record has been selected
+        {
+            //display an error
+            lblError.Text = "Please select a record to delete from the list";
+        }
     }
 
     protected void txtEmployeeName_TextChanged(object sender, EventArgs e)
@@ -147,6 +166,11 @@ public partial class _1_List : System.Web.UI.Page
 
     protected void Button2_Click(object sender, EventArgs e)
     {
+        Response.Redirect("5ReportsList.aspx");
+    }
 
+    protected void btnReturn_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("5ReportsDataEntry.aspx");
     }
 }

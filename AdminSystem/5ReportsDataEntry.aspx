@@ -26,13 +26,14 @@
         <asp:TextBox ID="txtDateAdded" runat="server"></asp:TextBox>
         <br />
         <asp:CheckBox ID="chkProfit" runat="server" Text="Profit" width="77px" />
-        <asp:CheckBox ID="chkLoss" runat="server" Text="Loss" width="77px" />
+        <asp:CheckBox ID="chkLoss" runat="server" Text="Loss" width="77px" OnCheckedChanged="chkLoss_CheckedChanged" />
         <br />
         <asp:Label ID="lblError" runat="server"></asp:Label>
         <br />
         <br />
         <asp:Button ID="btnOK" runat="server" OnClick="btnOK_Click" style="height: 26px" Text="OK" />
-        <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+        <asp:Button ID="btnCancel" runat="server" Text="Cancel" OnClick="btnCancel_Click" />
+        <asp:Button ID="btnGoToReportsList" runat="server" OnClick="Button1_Click" Text="Go To Reports List" />
     </form>
 </body>
 </html>

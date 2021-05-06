@@ -237,7 +237,7 @@ namespace ClassLibrary
             //set the parameters for the stored procedure
             DB.AddParameter("EmployeeId", mThisReport.EmployeeId);
             DB.AddParameter("EmployeeName", mThisReport.EmployeeName);
-            DB.AddParameter("Total;", mThisReport.Total);
+            DB.AddParameter("Total", mThisReport.Total);
             DB.AddParameter("Expenses", mThisReport.Expenses);
             DB.AddParameter("DateAdded", mThisReport.DateAdded);
             DB.AddParameter("ProfitOrLoss", mThisReport.ProfitOrLoss);
@@ -279,7 +279,7 @@ namespace ClassLibrary
 
             set
             {
-                //do this later
+               // do this later
             }
         }
 
@@ -322,7 +322,6 @@ namespace ClassLibrary
                 //read in the fields from the current record
                 AReport.EmployeeId = Convert.ToInt32(DB.DataTable.Rows[Index]["EmployeeId"]);
                 AReport.DateAdded = Convert.ToDateTime(DB.DataTable.Rows[Index]["DateAdded"]);
-               // AReport.Expenses = Convert.ToInt32(DB.DataTable.Rows[Index]["Expenses"]);
                 AReport.Total = Convert.ToInt32(DB.DataTable.Rows[Index]["Total"]);
                 AReport.ProfitOrLoss = Convert.ToBoolean(DB.DataTable.Rows[Index]["ProfitOrLoss"]);
                 AReport.EmployeeName = Convert.ToString(DB.DataTable.Rows[Index]["EmployeeName"]);

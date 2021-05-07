@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 
 namespace ClassLibrary
 {
@@ -33,6 +38,8 @@ namespace ClassLibrary
         }
         private Int32 mPrice;
 
+  
+
         public int Price
         {
             get
@@ -44,6 +51,12 @@ namespace ClassLibrary
                 mPrice = value;
             }
         }
+
+        public bool Find(string serviceName)
+        {
+            throw new NotImplementedException();
+        }
+
         private string mServiceName;
 
         public string ServiceName
@@ -69,17 +82,31 @@ namespace ClassLibrary
             {
                 mStaff = value;
             }
-        }        
-       
+        }
+
         public bool Find(int Price)
         {
-            mPrice = 50;
-            mDuration = 1;
-            mDiscount = true;
-            mServiceName = "Test Service Name";
-            mStaff = "Test Staff";
+        
 
-            return true;
+            clsDataConnection DB = new clsDataConnection();
+            DB.AddParameter("@ServiceName", ServiceName);
+            DB.Execute("sproc_tblAddress_FilterbyServiceName");
+            if (DB.Count == 1)
+            {
+
+              
+                mServiceName = Convert.ToString(DB.DataTable.Rows[0]["ServiceName"]);
+                mPrice = Convert.ToInt32(DB.DataTable.Rows[0]["Price"]);
+                mDuration = Convert.ToInt32(DB.DataTable.Rows[0]["Duration"]);
+                mDiscount = Convert.ToBoolean(DB.DataTable.Rows[0]["Eligibility of discount"]);
+
+                mStaff = Convert.ToString(DB.DataTable.Rows[0]["StaffName"]);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            }
         }
     }
-}

@@ -17,12 +17,47 @@ public partial class _1_DataEntry : System.Web.UI.Page
 
     protected void btnOK_Click(object sender, EventArgs e)
     {
+        
         clsServices AService = new clsServices();
-        AService.ServiceName = txtServiceName.Text;
-        Session["AService"] = AService;
-        Response.Redirect("1ServicesView.aspx");
+        string ServiceName = txtServiceName.Text;
+       
+        string Staff = txtStaff.Text;
+        
+        string Price = txtPrice.Text;
+       
+        string Duration = txtDuration.Text;
+
+
+        string Error = "";
+        //validate the data
+        Error = AService.Valid(ServiceName, Staff, Price, Duration);
+        if (Error == "")
+        {
+
+           
+            AService.ServiceName = ServiceName;
+
+            
+            AService.Staff = Staff;
+
+            AService.Price = Convert.ToInt32(Price);
+
+            AService.Duration = Convert.ToInt32(Duration);
+
+            Session["AService"] = AService;
+
+            Response.Write("1ServicesView.aspx");
+
+        }
+
+        else
+        {
+            //display the error message
+            lblError.Text = Error;
+        }
 
     }
+   
 
     protected void btnFind_Click(object sender, EventArgs e)
     {

@@ -52,6 +52,15 @@ namespace ClassLibrary
             }
         }
 
+        public string Valid(string serviceName, string staff, string price, string duration)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Find(string serviceName)
+        {
+            throw new NotImplementedException();
+        }
 
         private string mServiceName;
 

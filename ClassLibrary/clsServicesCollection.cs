@@ -139,6 +139,16 @@ namespace ClassLibrary
                 }
             }
 
+        public void ServiceByStaff(string v)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ServiceByStaff(object text)
+        {
+            throw new NotImplementedException();
+        }
+
 
 
 
